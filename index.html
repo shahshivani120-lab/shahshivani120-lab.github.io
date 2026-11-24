@@ -12,7 +12,7 @@
 <link rel="icon" href="avatar.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -30,379 +30,535 @@
 </script>
 <style>
 :root{
-  --bg:#ffffff; --bg-soft:#f4f7fc; --ink:#0f1f3d; --muted:#5b6b82; --line:#dde4ee;
-  --accent:#1f5fc4; --accent-soft:#e8f0fc; --green:#0f8a6a; --purple:#6b46c1; --orange:#d9761e;
-  --bar-before:#b8c3d1; --card:#ffffff;
+  --paper:#f4efe4; --paper-2:#ebe4d4; --ink:#1b1814; --ink-2:#4a433a; --muted:#7a7062;
+  --rule:#cfc5b2; --accent:#c8471d; --green:#22513f; --mustard:#e2b23c; --card:#fbf8f1;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0c1424; --bg-soft:#121d33; --ink:#e8eef8; --muted:#9aa9c0; --line:#24324d;
-    --accent:#6ea2f5; --accent-soft:#16264a; --green:#3fc39c; --purple:#a58af0; --orange:#f0a35c;
-    --bar-before:#3a4a66; --card:#101a2e;
+    --paper:#16130f; --paper-2:#1f1b16; --ink:#efe7d8; --ink-2:#cfc4b1; --muted:#9a8e7c;
+    --rule:#3a332a; --accent:#ec7a4f; --green:#7fc3a3; --mustard:#e9c162; --card:#1c1813;
   }
 }
+:root[data-theme="dark"]{
+  --paper:#16130f; --paper-2:#1f1b16; --ink:#efe7d8; --ink-2:#cfc4b1; --muted:#9a8e7c;
+  --rule:#3a332a; --accent:#ec7a4f; --green:#7fc3a3; --mustard:#e9c162; --card:#1c1813;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
-nav .brand{font-weight:700;color:var(--ink)}
-nav ul{display:flex;gap:22px;list-style:none;font-size:14px;font-weight:500}
-nav ul a{color:var(--muted)}
-nav ul a:hover{color:var(--ink);text-decoration:none}
-@media (max-width:680px){nav ul{display:none}}
-.btn{display:inline-block;padding:11px 20px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--accent)}
-.btn.primary{background:var(--accent);color:#fff}
-.btn.ghost{color:var(--accent)}
-.btn:hover{text-decoration:none;opacity:.9}
-nav .btn{padding:7px 14px;font-size:14px}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+::selection{background:var(--mustard);color:#1b1814}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+@media (max-width:640px){.wrap{padding:0 18px}}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.serif{font-family:var(--serif)}
+em,.it{font-family:var(--serif);font-style:italic;font-weight:400}
 
-header.hero{padding:72px 0 56px}
-.hero .grid{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:center}
-.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-h1{font-size:clamp(40px,6vw,60px);line-height:1.05;font-weight:800;letter-spacing:-.02em}
-.hero h2{font-size:clamp(20px,2.6vw,26px);font-weight:600;margin:16px 0 12px;line-height:1.3}
-.hero p.lead{color:var(--muted);font-size:17px;max-width:560px}
-.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.hero .meta{margin-top:20px;font-size:14px;color:var(--muted)}
-.hero img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:24px;border:1px solid var(--line);box-shadow:0 20px 50px -20px rgba(15,31,61,.35)}
-@media (max-width:820px){.hero .grid{grid-template-columns:1fr}.hero img{max-width:240px;order:-1}}
+/* masthead */
+.topline{border-bottom:1px solid var(--ink)}
+.topline .wrap{display:flex;justify-content:space-between;gap:16px;padding-top:10px;padding-bottom:10px;color:var(--ink-2)}
+@media (max-width:640px){.topline .hide-sm{display:none}}
+nav.mast{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+nav.mast .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+.logo{font-family:var(--serif);font-size:24px;font-weight:600;text-decoration:none;letter-spacing:-.02em}
+.logo span{color:var(--accent);font-style:italic}
+nav.mast ul{display:flex;gap:28px;list-style:none}
+nav.mast ul a{text-decoration:none;color:var(--ink-2);position:relative}
+nav.mast ul a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1px;background:var(--accent);transition:right .3s}
+nav.mast ul a:hover::after{right:0}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid var(--ink);border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;transition:background .25s,color .25s}
+.pill:hover{background:var(--ink);color:var(--paper)}
+.pill.solid{background:var(--ink);color:var(--paper)}
+.pill.solid:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (max-width:860px){nav.mast ul{display:none}}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-bottom:4px solid var(--c,var(--accent))}
-.stat b{display:block;font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
-.stat span{color:var(--muted);font-size:14px}
-@media (max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:420px){.stats{grid-template-columns:1fr}}
+/* hero */
+.hero{padding:56px 0 40px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:56px;align-items:end}
+.kicker{display:flex;align-items:center;gap:12px;color:var(--accent);margin-bottom:22px}
+.kicker::before{content:"";width:36px;height:1px;background:currentColor}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px,11vw,168px);line-height:.86;letter-spacing:-.045em;font-variation-settings:"opsz" 144}
+.hero h1 .it{color:var(--accent);font-weight:300}
+.hero h1 .line{display:block}
+.hero .dek{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);line-height:1.25;margin-top:28px;max-width:640px;font-weight:350}
+.scribble{position:relative;white-space:nowrap}
+.scribble svg{position:absolute;left:-2%;bottom:-10px;width:104%;height:16px;overflow:visible}
+.scribble path{stroke:var(--mustard);stroke-width:5;fill:none;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.4s .6s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero .lead{color:var(--ink-2);max-width:560px;margin-top:22px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.portrait{position:relative;justify-self:end;width:100%;max-width:400px}
+.portrait .frame{border-radius:220px 220px 14px 14px;overflow:hidden;border:1px solid var(--ink);aspect-ratio:4/5;background:var(--paper-2)}
+.portrait img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.03)}
+.portrait .cap{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted)}
+.badge{position:absolute;left:-54px;bottom:70px;width:132px;height:132px;border-radius:50%;background:var(--mustard);color:#1b1814;display:grid;place-items:center;box-shadow:0 10px 30px -12px rgba(0,0,0,.35)}
+.badge svg{position:absolute;inset:0;animation:spin 22s linear infinite}
+.badge b{font-family:var(--serif);font-size:30px;font-style:italic;font-weight:500;line-height:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.portrait{justify-self:start;max-width:320px}.badge{left:auto;right:-30px}}
+.meta-row{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);margin-top:56px}
+.meta-row div{padding:14px 0;color:var(--ink-2)}
+.meta-row div+div{padding-left:20px;border-left:1px solid var(--rule)}
+@media (max-width:720px){.meta-row{grid-template-columns:1fr}.meta-row div+div{border-left:0;padding-left:0;border-top:1px solid var(--rule)}}
 
-section{padding:64px 0}
-section.soft{background:var(--bg-soft)}
-h3.sec{font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px}
-.sub{color:var(--muted);max-width:720px;margin-bottom:32px}
+/* ticker */
+.ticker{background:var(--ink);color:var(--paper);overflow:hidden;padding:18px 0;margin-top:40px;transform:rotate(-1.2deg);width:104%;margin-left:-2%}
+.ticker .track{display:flex;gap:48px;width:max-content;animation:tick 40s linear infinite}
+.ticker span{font-family:var(--serif);font-size:28px;white-space:nowrap;display:flex;align-items:center;gap:48px}
+.ticker span i{color:var(--mustard)}
+.ticker span::after{content:"✳";color:var(--accent);font-style:normal}
+@keyframes tick{to{transform:translateX(-50%)}}
 
-.cards4{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-@media (max-width:1040px){.cards4{grid-template-columns:repeat(3,1fr)}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px}
-.card h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.card p{color:var(--muted);font-size:15px}
-@media (max-width:900px){.cards4{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.cards4{grid-template-columns:1fr}}
-.quote{margin-top:24px;background:var(--accent-soft);border-radius:12px;padding:28px}
-.quote strong{display:block;font-size:clamp(20px,2.6vw,26px);line-height:1.3;margin-bottom:8px}
-.quote p{color:var(--muted)}
+/* sections */
+section{padding:110px 0;position:relative}
+.sec-head{display:grid;grid-template-columns:180px 1fr;gap:32px;margin-bottom:56px;align-items:start}
+.sec-head .num{font-family:var(--serif);font-size:88px;line-height:.8;font-style:italic;color:var(--accent);font-weight:300}
+.sec-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.03em}
+.sec-head p{color:var(--ink-2);max-width:620px;margin-top:18px;font-size:18px}
+@media (max-width:720px){.sec-head{grid-template-columns:1fr;gap:8px}.sec-head .num{font-size:60px}}
 
-.case{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:32px;margin-bottom:28px}
-.case .tag{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-.case h4{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.01em;margin:6px 0 8px;line-height:1.2}
-.case > p{color:var(--muted);margin-bottom:24px}
-.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
-.three > div{border:1px solid var(--line);border-radius:12px;padding:20px}
-.three > div.hl{background:var(--accent-soft);border-color:transparent}
-.three h5{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.three p,.three li{font-size:15px;color:var(--muted)}
-.three ul{padding-left:18px}
-@media (max-width:820px){.three{grid-template-columns:1fr}}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-@media (max-width:820px){.two{grid-template-columns:1fr}}
-.panel{border:1px solid var(--line);border-radius:12px;padding:22px}
-.panel h5{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.panel p{font-size:15px;color:var(--muted)}
-.bar{margin-bottom:12px}
-.bar .lbl{font-size:14px;font-weight:600;margin-bottom:4px}
-.bar .row{display:grid;grid-template-columns:52px 1fr 64px;gap:10px;align-items:center;font-size:13px;color:var(--muted);margin-bottom:3px}
-.bar .track{height:10px;background:var(--bg-soft);border-radius:5px;overflow:hidden}
-.bar .fill{height:100%;border-radius:5px;background:var(--bar-before)}
-.bar .fill.after{background:var(--accent)}
-.bar .row b{color:var(--ink);text-align:right}
-.bar .row span.v{text-align:right}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:6px 0;border-bottom:1px solid var(--line)}
-td{padding:9px 0;border-bottom:1px solid var(--line);vertical-align:top}
-td.n,th.n{text-align:right;white-space:nowrap;padding-left:10px}
-.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:20px}
-.steps div{border:1px solid var(--line);border-radius:12px;padding:16px}
-.steps small{color:var(--accent);font-weight:700}
-.steps strong{display:block;margin:2px 0 4px}
-.steps p{font-size:13px;color:var(--muted);line-height:1.5}
-@media (max-width:900px){.steps{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:520px){.steps{grid-template-columns:repeat(2,1fr)}}
+/* index of numbers */
+.numbers{display:grid;grid-template-columns:repeat(12,1fr);border-top:1px solid var(--ink)}
+.n{padding:28px 24px 30px 0;border-bottom:1px solid var(--rule)}
+.n:nth-child(1){grid-column:span 7;border-right:1px solid var(--rule)}
+.n:nth-child(2){grid-column:span 5;padding-left:24px}
+.n:nth-child(3),.n:nth-child(4),.n:nth-child(5){grid-column:span 4}
+.n:nth-child(4),.n:nth-child(5){padding-left:24px;border-left:1px solid var(--rule)}
+.n b{display:block;font-family:var(--serif);font-weight:300;letter-spacing:-.05em;line-height:.9;font-size:clamp(56px,8vw,120px)}
+.n:nth-child(1) b{font-size:clamp(80px,13vw,190px);color:var(--accent)}
+.n p{color:var(--ink-2);max-width:360px;margin-top:10px}
+.n .mono{color:var(--muted);display:block;margin-bottom:14px}
+@media (max-width:820px){.numbers{grid-template-columns:1fr}.n{grid-column:auto!important;border-left:0!important;border-right:0!important;padding-left:0!important}}
 
-.timeline{border-left:2px solid var(--line);margin-left:6px}
-.job{position:relative;padding:0 0 28px 26px}
-.job::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
-.job .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 16px}
-.job h4{font-size:18px;font-weight:700}
-.job .when{color:var(--muted);font-size:14px}
-.job .org{color:var(--muted);font-size:15px;margin-bottom:6px}
-.job p{font-size:15px}
+/* approach */
+.approach{background:var(--paper-2)}
+.dropcap{font-family:var(--serif);font-size:clamp(22px,2.4vw,28px);line-height:1.4;max-width:900px;font-weight:350}
+.dropcap::first-letter{float:left;font-size:5.2em;line-height:.8;padding:6px 14px 0 0;color:var(--accent);font-style:italic;font-weight:400}
+.cols5{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:64px;border-top:1px solid var(--ink)}
+.cols5 div{padding:22px 22px 0 0}
+.cols5 div+div{padding-left:22px;border-left:1px solid var(--rule)}
+.cols5 .roman{font-family:var(--serif);font-style:italic;font-size:34px;color:var(--accent);line-height:1}
+.cols5 h3{font-family:var(--serif);font-weight:500;font-size:22px;margin:12px 0 8px;line-height:1.15}
+.cols5 p{color:var(--ink-2);font-size:15.5px}
+.cols5 .new{display:inline-block;background:var(--mustard);color:#1b1814;padding:1px 8px;border-radius:99px;margin-left:6px;font-size:10px;vertical-align:middle}
+@media (max-width:1000px){.cols5{grid-template-columns:repeat(2,1fr)}.cols5 div{padding:22px 0!important;border-left:0!important;border-bottom:1px solid var(--rule)}.cols5 div:nth-child(even){padding-left:22px!important;border-left:1px solid var(--rule)!important}}
+@media (max-width:560px){.cols5{grid-template-columns:1fr}.cols5 div:nth-child(even){padding-left:0!important;border-left:0!important}}
 
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;background:var(--card)}
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+/* features */
+.feature{border-top:1px solid var(--ink);padding-top:28px;margin-bottom:120px}
+.f-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);margin-bottom:28px}
+.f-title{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:56px}
+.f-title h3{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.6vw,80px);line-height:.95;letter-spacing:-.035em}
+.f-title h3 em{color:var(--accent)}
+.f-title p{color:var(--ink-2);font-size:18px}
+@media (max-width:860px){.f-title{grid-template-columns:1fr;gap:20px}}
+.f-body{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
+.f-story{grid-column:span 5}
+.f-data{grid-column:span 7}
+@media (max-width:960px){.f-story,.f-data{grid-column:1/-1}}
+.f-story h4{margin:26px 0 8px;color:var(--accent)}
+.f-story h4:first-child{margin-top:0}
+.f-story p,.f-story li{color:var(--ink-2)}
+.f-story ul{list-style:none}
+.f-story li{padding:8px 0 8px 28px;border-bottom:1px dashed var(--rule);position:relative}
+.f-story li::before{content:"→";position:absolute;left:0;color:var(--accent)}
+.pull{font-family:var(--serif);font-style:italic;font-size:clamp(24px,2.6vw,32px);line-height:1.22;margin:34px 0 0;padding:26px 0 0;border-top:3px solid var(--ink);position:relative;color:var(--ink)!important;padding-right:56px}
+.pull::before{content:"“";position:absolute;top:-8px;right:0;font-size:120px;line-height:1;color:var(--mustard);font-style:normal}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--ink);background:var(--card)}
+.tile{padding:22px 24px;border-bottom:1px solid var(--rule)}
+.tile:nth-child(odd){border-right:1px solid var(--rule)}
+.tile:nth-last-child(-n+2){border-bottom:0}
+.tile b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(40px,4.6vw,60px);line-height:1;letter-spacing:-.04em}
+.tile span{color:var(--ink-2);font-size:14.5px;display:block;margin-top:6px}
+.tile.hot{background:var(--ink);color:var(--paper)}
+.tile.hot span{color:color-mix(in srgb,var(--paper) 75%,transparent)}
+.tile.hot b{color:var(--mustard)}
+.chart{border:1px solid var(--ink);border-top:0;background:var(--card);padding:22px 24px}
+.chart .mono{color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.chart svg{width:100%;height:auto;display:block;margin-top:14px;overflow:visible}
+.chart svg text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.ln{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.reveal .ln{stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 2s ease .2s}
+.reveal.in .ln{stroke-dashoffset:0}
+.area{fill:var(--accent);opacity:.1}
+.grid-l{stroke:var(--rule);stroke-dasharray:3 4}
+.hb{margin-top:16px}
+.hb .lbl{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:6px}
+.hb .lbl b{font-family:var(--serif);font-weight:500;font-size:18px}
+.hb .tr{height:12px;background:var(--paper-2);border-radius:2px;position:relative;overflow:hidden}
+.hb .fi{position:absolute;inset:0 auto 0 0;background:var(--muted);width:0;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.hb .fi.ac{background:var(--accent)}
+.reveal.in .hb .fi{width:var(--w)}
+.qtable{width:100%;border-collapse:collapse;font-size:15px}
+.qtable td{padding:11px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.qtable td:last-child{text-align:right;font-family:var(--serif);font-size:20px;white-space:nowrap;padding-left:14px}
+.donut-row{display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center}
+@media (max-width:520px){.donut-row{grid-template-columns:1fr}.donut-row svg{max-width:150px}}
+.chart svg.donut text{font-family:var(--serif);font-size:30px;fill:var(--ink)}
+.steps6{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--ink);border-top:0;background:var(--card)}
+.steps6 div{padding:16px 14px;border-right:1px solid var(--rule)}
+.steps6 div:last-child{border-right:0}
+.steps6 small{font-family:var(--mono);color:var(--accent);font-size:11px}
+.steps6 strong{display:block;font-family:var(--serif);font-weight:500;font-size:18px;margin-top:2px}
+.steps6 p{font-size:13px;color:var(--ink-2);line-height:1.45;margin-top:4px}
+@media (max-width:700px){.steps6{grid-template-columns:repeat(2,1fr)}.steps6 div{border-bottom:1px solid var(--rule)}}
 
-.pub{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
-@media (max-width:700px){.pub{grid-template-columns:1fr}}
+/* publication */
+.pubwrap{display:grid;grid-template-columns:300px 1fr;gap:64px;align-items:center;padding:20px 0 0}
+.cover{aspect-ratio:3/4;background:var(--green);color:#f4efe4;padding:26px;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(-3deg);box-shadow:16px 18px 0 var(--mustard);border:1px solid #1b1814}
+.cover .mono{opacity:.75}
+.cover h4{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.02;letter-spacing:-.02em}
+.cover h4 em{color:var(--mustard)}
+.pubwrap h3{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-.02em;margin-top:8px}
+.pubwrap p{color:var(--ink-2);margin-top:16px;max-width:620px}
+@media (max-width:820px){.pubwrap{grid-template-columns:1fr;gap:48px}.cover{max-width:260px}}
 
-.contact{background:var(--ink);color:var(--bg);border-radius:20px;padding:44px}
-.contact h3{font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
-.contact p{opacity:.8;max-width:620px}
-.contact .two .panel{border-color:color-mix(in srgb,var(--bg) 25%,transparent)}
-.contact .panel h5{color:inherit;opacity:.7}
-.contact .panel p,.contact .panel li{color:inherit;opacity:.9;font-size:15px}
-.contact .panel ul{padding-left:18px}
-.contact .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.contact .btn.primary{background:var(--bg);color:var(--ink);border-color:var(--bg)}
-.contact .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 50%,transparent)}
-footer{padding:28px 0 40px;color:var(--muted);font-size:14px;text-align:center}
+/* experience */
+.toc{border-top:1px solid var(--ink)}
+.toc .row{display:grid;grid-template-columns:170px 1fr 220px;gap:28px;padding:26px 0;border-bottom:1px solid var(--rule);transition:background .3s,padding .3s}
+.toc .row:hover{background:var(--paper);padding-left:14px;padding-right:14px}
+.toc .when{color:var(--muted);padding-top:8px}
+.toc h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,32px);line-height:1.1;letter-spacing:-.015em}
+.toc p{color:var(--ink-2);margin-top:8px;font-size:16px}
+.toc .org{text-align:right;color:var(--ink-2);font-size:15px}
+.toc .org b{display:block;font-weight:600;color:var(--ink)}
+@media (max-width:820px){.toc .row{grid-template-columns:1fr;gap:6px}.toc .org{text-align:left}}
+
+/* glossary */
+.glossary{columns:3 280px;column-gap:48px;column-rule:1px solid var(--rule)}
+.gl{break-inside:avoid;margin-bottom:34px}
+.gl h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:28px;color:var(--accent);border-bottom:1px solid var(--ink);padding-bottom:6px;margin-bottom:10px}
+.gl p{color:var(--ink-2);font-size:16px;line-height:1.75}
+.gl p b{color:var(--ink);font-weight:600}
+
+/* contact */
+.contact{background:#1b1814;color:#f4efe4;padding:120px 0 60px;position:relative;overflow:hidden;--line:rgba(244,239,228,.2)}
+.contact h2{font-family:var(--serif);font-weight:300;font-size:clamp(56px,10vw,150px);line-height:.88;letter-spacing:-.045em}
+.contact h2 em{color:#e2b23c;font-weight:300}
+.contact .intro{max-width:560px;margin-top:28px;font-size:18px;color:rgba(244,239,228,.78)}
+.offers{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border-top:1px solid rgba(244,239,228,.4)}
+.offers div{padding:24px 22px 24px 0}
+.offers div+div{padding-left:22px;border-left:1px solid var(--line)}
+.offers .mono{color:#e2b23c}
+.offers h3{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.12;margin:10px 0 8px}
+.offers p{font-size:15px;color:rgba(244,239,228,.72)}
+@media (max-width:960px){.offers{grid-template-columns:1fr 1fr}.offers div{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--line)}}
+@media (max-width:560px){.offers{grid-template-columns:1fr}}
+.contact .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:56px}
+.contact .pill{border-color:#f4efe4;color:#f4efe4}
+.contact .pill:hover{background:#f4efe4;color:#1b1814}
+.contact .pill.solid{background:#e2b23c;color:#1b1814;border-color:#e2b23c}
+.contact .pill.solid:hover{background:#f4efe4}
+.colophon{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);color:rgba(244,239,228,.6)}
+.bigname{font-family:var(--serif);font-size:clamp(64px,16vw,240px);line-height:.9;letter-spacing:-.06em;font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(244,239,228,.3);margin-top:80px;white-space:nowrap}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.reveal .ln{stroke-dashoffset:0}.reveal .hb .fi{width:var(--w)}.scribble path{stroke-dashoffset:0}}
 </style>
 </head>
 <body>
 
-<nav>
+<div class="topline"><div class="wrap mono"><span>Vol. 07 · Portfolio edition</span><span class="hide-sm">Growth · Search · Paid · Founder LinkedIn</span><span>November 2026</span></div></div>
+
+<nav class="mast">
   <div class="wrap">
-    <a class="brand" href="#top">Shivani Shah</a>
-    <ul>
+    <a class="logo" href="#top">Shivani <span>Shah</span></a>
+    <ul class="mono">
+      <li><a href="#numbers">The numbers</a></li>
       <li><a href="#approach">Approach</a></li>
-      <li><a href="#work">Case studies</a></li>
+      <li><a href="#work">Features</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
     </ul>
-    <a class="btn primary" href="#contact">Work with me</a>
+    <a class="pill solid" href="#contact">Work with me →</a>
   </div>
 </nav>
 
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="grid">
+    <div class="hero-grid">
       <div>
-        <div class="eyebrow">Portfolio · 2026</div>
-        <h1>Shivani Shah</h1>
-        <h2>Growth Marketing for B2B SaaS: SEO, AI Search, Paid Ads and Founder LinkedIn</h2>
-        <p class="lead">Digital marketing and growth manager with 7+ years across agency, startup, B2B SaaS and hospitality marketing in India, Australia and the USA. I combine SEO and AI search visibility (GEO/AEO) with Meta and Google Ads, content and design, and I ghostwrite LinkedIn content that builds personal brands for B2B founders.</p>
+        <div class="kicker mono">Growth marketer &amp; founder ghostwriter</div>
+        <h1><span class="line">Shivani</span><span class="line"><span class="it">Shah</span>.</span></h1>
+        <p class="dek">I make B2B brands easy to find on Google, <span class="scribble">quoted by AI<svg viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden="true"><path d="M2 10 C 40 2, 80 14, 120 7 S 180 4, 198 9"/></svg></span>, and worth following on LinkedIn.</p>
+        <p class="lead">Digital marketing and growth manager with 7+ years across agency, startup, B2B SaaS and hospitality in India, Australia and the USA. SEO and AI search visibility (GEO/AEO), Meta and Google Ads, content and design, and LinkedIn ghostwriting that builds personal brands for B2B founders.</p>
         <div class="ctas">
-          <a class="btn primary" href="#work">See case studies</a>
-          <a class="btn ghost" href="https://www.linkedin.com/in/shivanishah-growth" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="pill solid" href="#work">Read the case studies</a>
+          <a class="pill" href="https://www.linkedin.com/in/shivanishah-growth" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
-        <div class="meta">📍 Mumbai, India · Open to remote roles and freelance projects across US, UK, Australian and Canadian time zones</div>
       </div>
-      <img src="avatar.jpg" alt="Portrait of Shivani Shah" width="300" height="300">
+      <figure class="portrait">
+        <div class="frame"><img src="avatar.jpg" alt="Portrait of Shivani Shah" width="400" height="500"></div>
+        <figcaption class="cap mono"><span>Fig. 01</span><span>Mumbai, India</span></figcaption>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 132 132"><defs><path id="circ" d="M66,66 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs><text font-family="IBM Plex Mono,monospace" font-size="10.5" letter-spacing="2.6" fill="#1b1814"><textPath href="#circ">FIND THE SIGNAL · BUILD THE NEXT MOVE · </textPath></text></svg>
+          <b>7+ yrs</b>
+        </div>
+      </figure>
+    </div>
+    <div class="meta-row mono">
+      <div>Based in Mumbai · working remotely</div>
+      <div>US · UK · Australia · Canada time zones</div>
+      <div>Open to full-time &amp; freelance</div>
     </div>
   </div>
+  <div class="ticker" aria-hidden="true"><div class="track">
+    <span><i>+166%</i> Google clicks in a quarter</span><span><i>9.5K</i> AI citations in 3 months</span><span><i>73.3K</i> LinkedIn impressions in a week</span><span><i>86%</i> AI citation share on a buyer query</span><span><i>+241%</i> domain clicks for an Australian SaaS</span><span><i>+298%</i> founder profile viewers</span>
+    <span><i>+166%</i> Google clicks in a quarter</span><span><i>9.5K</i> AI citations in 3 months</span><span><i>73.3K</i> LinkedIn impressions in a week</span><span><i>86%</i> AI citation share on a buyer query</span><span><i>+241%</i> domain clicks for an Australian SaaS</span><span><i>+298%</i> founder profile viewers</span>
+  </div></div>
 </header>
 
-<div class="wrap">
-  <div class="stats">
-    <div class="stat" style="--c:var(--accent)"><b>+166%</b><span>Google clicks in one quarter for a US B2B firm</span></div>
-    <div class="stat" style="--c:var(--purple)"><b>9.5K</b><span>AI citations in Microsoft Copilot &amp; partners in 3 months</span></div>
-    <div class="stat" style="--c:var(--green)"><b>86%</b><span>Share of AI citations for a top buyer query</span></div>
-    <div class="stat" style="--c:var(--orange)"><b>73K</b><span>LinkedIn impressions in 7 days for a US B2B IT founder I ghostwrite for</span></div>
-  </div>
-</div>
-
-<section id="approach">
+<section id="numbers">
   <div class="wrap">
-    <div class="eyebrow">Profile</div>
-    <h3 class="sec">How I work across the growth funnel</h3>
-    <p class="sub">I connect acquisition, organic growth, content and measurement instead of treating channels in isolation.</p>
-    <div class="cards4">
-      <div class="card"><h4>Research &amp; strategy</h4><p>Market and competitor research, social media and website audits, positioning and channel plans.</p></div>
-      <div class="card"><h4>Paid</h4><p>Meta Ads, Google Ads and LinkedIn Ads, with creative and offer testing before scaling budget.</p></div>
-      <div class="card"><h4>Organic &amp; AI search</h4><p>SEO, buyer-intent content and AEO/GEO so the brand gets cited in ChatGPT, Copilot, Perplexity and Google AI Overviews.</p></div>
-      <div class="card"><h4>Founder LinkedIn</h4><p>Ghostwriting and personal branding for B2B founders: their voice, their expertise, posts that reach new buyers.</p></div>
-      <div class="card"><h4>Measurement</h4><p>GA4, Search Console, Bing Webmaster Tools and funnel analysis, from first click to qualified lead.</p></div>
-    </div>
-    <div class="quote">
-      <strong>Find the signal. Connect it to the funnel. Build the next growth move.</strong>
-      <p>I look at where demand is growing, which messages make people act, where they drop out, and whether tracking connects marketing to real opportunities.</p>
+    <div class="sec-head reveal"><div class="num">i.</div><div><h2>The numbers, <em>first</em>.</h2><p>Every result here is from real client work across three markets and three channels: search, AI answers and LinkedIn.</p></div></div>
+    <div class="numbers reveal">
+      <div class="n"><span class="mono">Organic search · US B2B firm</span><b data-count="166" data-prefix="+" data-suffix="%">+166%</b><p>Google clicks in one quarter (Q3 vs Q2 2026), while impressions rose only 19%.</p></div>
+      <div class="n"><span class="mono">LinkedIn · US B2B IT founder</span><b data-count="73.3" data-suffix="K" data-dec="1">73.3K</b><p>Impressions in 7 days, up 3,077% on the week before. 93% came from outside the founder's network.</p></div>
+      <div class="n"><span class="mono">AI search · Copilot &amp; partners</span><b data-count="9.5" data-suffix="K" data-dec="1">9.5K</b><p>AI citations over 3 months.</p></div>
+      <div class="n"><span class="mono">AI citation share</span><b data-count="86" data-suffix="%">86%</b><p>For “best performance management software for law firms”.</p></div>
+      <div class="n"><span class="mono">Australian SaaS · domain</span><b data-count="241" data-prefix="+" data-suffix="%">+241%</b><p>Google clicks across the domain (654 → 2.23K).</p></div>
     </div>
   </div>
 </section>
 
-<section class="soft" id="work">
+<section class="approach" id="approach">
   <div class="wrap">
-    <div class="eyebrow">Selected work</div>
-    <h3 class="sec">Case studies</h3>
-    <p class="sub">Three angles on the same approach: research-led content that won Google and AI search in the US legal market, hands-on client marketing across websites, SEO and paid social in Australia, and founder-led LinkedIn that built a US IT founder's personal brand.</p>
+    <div class="sec-head reveal"><div class="num">ii.</div><div><h2>How I work across <em>the funnel</em>.</h2></div></div>
+    <p class="dropcap reveal">Find the signal. Connect it to the funnel. Build the next growth move. I look at where demand is growing, which messages make people act, where they drop out, and whether tracking connects marketing to real opportunities, instead of treating channels in isolation.</p>
+    <div class="cols5 reveal">
+      <div><span class="roman">I</span><h3>Research &amp; strategy</h3><p>Market and competitor research, social and website audits, positioning and channel plans.</p></div>
+      <div><span class="roman">II</span><h3>Paid</h3><p>Meta, Google and LinkedIn Ads, with creative and offer testing before scaling budget.</p></div>
+      <div><span class="roman">III</span><h3>Organic &amp; AI search</h3><p>SEO, buyer-intent content and GEO/AEO so the brand gets cited in ChatGPT, Copilot, Perplexity and AI Overviews.</p></div>
+      <div><span class="roman">IV</span><h3>Founder LinkedIn <span class="new mono">New</span></h3><p>Ghostwriting and personal branding for B2B founders: their voice, their expertise, posts that reach new buyers.</p></div>
+      <div><span class="roman">V</span><h3>Measurement</h3><p>GA4, Search Console, Bing Webmaster Tools and funnel analysis, from first click to qualified lead.</p></div>
+    </div>
+  </div>
+</section>
 
-    <article class="case">
-      <div class="tag">Case study 01</div>
-      <h4>SRA HQ | Organic search + AI visibility</h4>
-      <p>Survey Research Associates is a 30-year-old US firm serving AmLaw-tier law firms. I led its digital marketing remotely from May 2024 to September 2026.</p>
-      <div class="stats">
-        <div class="stat" style="--c:var(--accent)"><b>190K</b><span>Google impressions over 16 months</span></div>
-        <div class="stat" style="--c:var(--green)"><b>+166%</b><span>Google clicks, Q3 vs Q2 2026 (273 → 725)</span></div>
-        <div class="stat" style="--c:var(--purple)"><b>2.8K</b><span>AI citations in September 2026</span></div>
-        <div class="stat" style="--c:var(--orange)"><b>86%</b><span>AI citation share, “best performance management software for law firms”</span></div>
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="num">iii.</div><div><h2>Features.</h2><p>Three stories, one approach: research-led content that won Google and AI search in the US legal market, hands-on client marketing in Australia, and founder-led LinkedIn for a US IT company.</p></div></div>
+
+    <article class="feature">
+      <div class="f-top mono reveal"><span>Feature 01 — Organic search + AI visibility</span><span>SRA HQ · USA · May 2024 – Sep 2026</span></div>
+      <div class="f-title reveal">
+        <h3>The firm Copilot <em>kept quoting</em>.</h3>
+        <p>Survey Research Associates is a 30-year-old US firm serving AmLaw-tier law firms. It had almost no search visibility. Its pages became the source AI assistants cited for buyer questions in its category, often ahead of the software vendors' own sites.</p>
       </div>
-      <div class="three">
-        <div><h5>The problem</h5><p>A respected firm with almost no search visibility. Law-firm leaders were researching retention, performance reviews and legal AI tools, and SRA wasn't in those answers on Google or in AI assistants.</p></div>
-        <div><h5>What I did</h5><ul><li>Rebuilt website content, technical and on-page SEO in Webflow</li><li>Mapped buyer questions and wrote comparison, buyer-guide and research content</li><li>Tracked AI citations in Bing Webmaster Tools and doubled down on the formats AI kept quoting</li></ul></div>
-        <div class="hl"><h5>The result</h5><p>SRA's pages became the source Microsoft Copilot quoted for buyer questions in its category, often ahead of the software vendors' own sites. Clicks grew far faster than impressions.</p></div>
-      </div>
-      <div class="two">
-        <div class="panel">
-          <h5>Google Search Console · Q3 vs Q2 2026</h5>
-          <div class="bar"><div class="lbl">Clicks</div>
-            <div class="row"><span>Before</span><div class="track"><div class="fill" style="width:38%"></div></div><span class="v">273</span></div>
-            <div class="row"><span>After</span><div class="track"><div class="fill after" style="width:100%"></div></div><b>725</b></div></div>
-          <div class="bar"><div class="lbl">Impressions</div>
-            <div class="row"><span>Before</span><div class="track"><div class="fill" style="width:84%"></div></div><span class="v">71.4K</span></div>
-            <div class="row"><span>After</span><div class="track"><div class="fill after" style="width:100%"></div></div><b>84.8K</b></div></div>
-          <div class="bar"><div class="lbl">Click-through rate</div>
-            <div class="row"><span>Before</span><div class="track"><div class="fill" style="width:44%"></div></div><span class="v">0.4%</span></div>
-            <div class="row"><span>After</span><div class="track"><div class="fill after" style="width:100%"></div></div><b>0.9%</b></div></div>
-          <p>Average position improved from 8.5 to 6.8. ChatGPT also became a channel: 205 referral sessions (Jan–Sep 2026) at a 34% engagement rate vs 19% from Google organic.</p>
+      <div class="f-body">
+        <div class="f-story reveal">
+          <h4 class="mono">The problem</h4>
+          <p>Law-firm leaders were researching retention, performance reviews and legal AI tools, and SRA wasn't in those answers on Google or in AI assistants.</p>
+          <h4 class="mono">What I did</h4>
+          <ul>
+            <li>Rebuilt website content, technical and on-page SEO in Webflow</li>
+            <li>Mapped buyer questions into comparison, buyer-guide and research content</li>
+            <li>Tracked AI citations in Bing Webmaster Tools and doubled down on the formats AI kept quoting</li>
+          </ul>
+          <p class="pull">Clicks grew 166% while impressions grew 19%. The right pages, not just more pages.</p>
         </div>
-        <div class="panel">
-          <h5>Buyer questions where SRA led the AI answer</h5>
-          <table>
-            <tr><th>Search</th><th class="n">Citation share</th></tr>
-            <tr><td>HR Performance Solutions law firm performance management</td><td class="n"><b>88.9%</b></td></tr>
-            <tr><td>Best performance management software for law firms</td><td class="n"><b>85.7%</b></td></tr>
-            <tr><td>Lattice performance management evaluation, law firms</td><td class="n"><b>82.0%</b></td></tr>
-            <tr><td>Performance tracking platforms for legal professionals</td><td class="n"><b>80.3%</b></td></tr>
-            <tr><td>Best 360 feedback software for law firms</td><td class="n"><b>65.5%</b></td></tr>
-          </table>
-          <p style="margin-top:12px">Most-cited page: <b>Legora vs Harvey AI</b>, with 976 AI citations and 46.4K Google impressions in a single quarter.</p>
+        <div class="f-data reveal">
+          <div class="tiles">
+            <div class="tile hot"><b>+166%</b><span>Google clicks, Q3 vs Q2 2026 (273 → 725)</span></div>
+            <div class="tile"><b>190K</b><span>Google impressions over 16 months</span></div>
+            <div class="tile"><b>2.8K</b><span>AI citations in September 2026</span></div>
+            <div class="tile"><b>976</b><span>AI citations for one page: “Legora vs Harvey AI”</span></div>
+          </div>
+          <div class="chart">
+            <div class="mono"><span>Search Console · Q2 → Q3 2026</span><span>Avg. position 8.5 → 6.8</span></div>
+            <div class="hb"><div class="lbl"><span>Clicks</span><b>273 → 725</b></div><div class="tr"><div class="fi" style="--w:38%"></div></div><div class="tr" style="margin-top:4px"><div class="fi ac" style="--w:100%"></div></div></div>
+            <div class="hb"><div class="lbl"><span>Click-through rate</span><b>0.4% → 0.9%</b></div><div class="tr"><div class="fi" style="--w:44%"></div></div><div class="tr" style="margin-top:4px"><div class="fi ac" style="--w:100%"></div></div></div>
+            <div class="hb"><div class="lbl"><span>Engagement rate: Google vs ChatGPT referrals</span><b>19% → 34%</b></div><div class="tr"><div class="fi" style="--w:56%"></div></div><div class="tr" style="margin-top:4px"><div class="fi ac" style="--w:100%"></div></div></div>
+          </div>
+          <div class="chart">
+            <div class="mono"><span>Buyer questions where SRA led the AI answer</span><span>Citation share</span></div>
+            <table class="qtable" style="margin-top:8px">
+              <tr><td>HR Performance Solutions law firm performance management</td><td>88.9%</td></tr>
+              <tr><td>Best performance management software for law firms</td><td>85.7%</td></tr>
+              <tr><td>Lattice performance management evaluation, law firms</td><td>82.0%</td></tr>
+              <tr><td>Performance tracking platforms for legal professionals</td><td>80.3%</td></tr>
+              <tr><td>Best 360 feedback software for law firms</td><td>65.5%</td></tr>
+            </table>
+          </div>
         </div>
       </div>
     </article>
 
-    <article class="case">
-      <div class="tag">Case study 02</div>
-      <h4>RestoGenius | Marketing for 7 restaurant clients</h4>
-      <p>RestoGenius is an Australian restaurant point-of-sale SaaS that also runs marketing for its restaurant customers. I lead that work, plus RestoGenius's own marketing, with a team of 3.</p>
-      <div class="stats">
-        <div class="stat" style="--c:var(--accent)"><b>7</b><span>Restaurant and hospitality clients managed</span></div>
-        <div class="stat" style="--c:var(--green)"><b>+241%</b><span>Google clicks across the domain (654 → 2.23K)</span></div>
-        <div class="stat" style="--c:var(--purple)"><b>1,647</b><span>Google clicks for new client websites in their first 3 months</span></div>
-        <div class="stat" style="--c:var(--orange)"><b>&lt;40%</b><span>Cost of the best Meta campaigns vs account average</span></div>
+    <article class="feature">
+      <div class="f-top mono reveal"><span>Feature 02 — Client marketing, start to finish</span><span>RestoGenius · Australia · Nov 2025 – Present</span></div>
+      <div class="f-title reveal">
+        <h3>Seven restaurants, <em>one system</em>.</h3>
+        <p>RestoGenius is an Australian restaurant POS SaaS that also runs marketing for its restaurant customers. I lead that work and RestoGenius's own marketing, with a team of 3.</p>
       </div>
-      <div class="steps">
-        <div><small>01</small><strong>Research</strong><p>Market and competitor research for the venue's area and cuisine</p></div>
-        <div><small>02</small><strong>Audit</strong><p>Social and website audits: what's missing, broken or working</p></div>
-        <div><small>03</small><strong>Plan</strong><p>Monthly content calendar tied to offers, events and seasons</p></div>
-        <div><small>04</small><strong>Create</strong><p>Static posts and carousels in the venue's voice</p></div>
-        <div><small>05</small><strong>Advertise</strong><p>Meta and Google Ads, tested and optimised weekly</p></div>
-        <div><small>06</small><strong>Report</strong><p>Monthly reports and client calls on results and next steps</p></div>
-      </div>
-      <div class="two">
-        <div class="panel">
-          <h5>Websites &amp; SEO</h5>
-          <p>Three new restaurant websites earned 1,647 Google clicks in their first 3 months. The two largest ranked at an average position of 5.9, with CTRs of 4.7% and 9.9%. Across the domain, average position improved from 17.5 to 8.2.</p>
-          <p style="margin-top:10px">In GA4, organic visitors enquired at <b>2.12%</b>, nearly 4x the 0.55% from direct, but only ~8% reached pricing. So I prioritised CTA hierarchy, navigation to pricing and demo, cleaner UTMs and qualified-lead tracking.</p>
+      <div class="f-body">
+        <div class="f-story reveal">
+          <h4 class="mono">Websites &amp; SEO</h4>
+          <p>Three new restaurant websites earned 1,647 Google clicks in their first 3 months. The two largest ranked at an average position of 5.9. Across the domain, average position improved from 17.5 to 8.2.</p>
+          <h4 class="mono">Meta Ads · creative over budget</h4>
+          <p>79 WhatsApp and Messenger contacts from ~US$1,050 (~US$13 each). Costs ranged about 10x across 19 campaigns, and the expensive ones had weaker hooks and offers, not bigger budgets.</p>
+          <p class="pull">Organic visitors enquired at nearly 4x the rate of direct, but only 8% reached pricing. So that's what we fixed next.</p>
         </div>
-        <div class="panel">
-          <h5>Meta Ads · creative over budget</h5>
-          <p>RestoGenius's own WhatsApp and Messenger campaigns in 2026: <b>79 contacts</b> from ~US$1,050 (~US$13 each). Costs ranged about 10x across 19 campaigns, and the most expensive ones had weaker hooks and offers, not bigger budgets.</p>
-          <p style="margin-top:10px">Testing pain-point hooks and clear offers before scaling brought the best campaigns to ~₹515 per conversation. The Brisbane Kiosk + POS launch got 7 conversations below the account average.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="case">
-      <div class="tag">Case study 03</div>
-      <h4>LinkedIn ghostwriting | Personal brand for a US B2B IT founder</h4>
-      <p>I ghostwrite founder-led LinkedIn content for B2B founders: turning their expertise, opinions and stories into posts that sound like them and reach the buyers they want. Results below are from the founder of a US-based B2B IT company (client anonymised), LinkedIn analytics for 17–23 November 2026.</p>
-      <div class="stats">
-        <div class="stat" style="--c:var(--accent)"><b>73.3K</b><span>Impressions in 7 days, up 3,077% vs the prior 7 days</span></div>
-        <div class="stat" style="--c:var(--green)"><b>48.7K</b><span>Members reached, 93% outside the founder's network</span></div>
-        <div class="stat" style="--c:var(--purple)"><b>+298%</b><span>Profile viewers (263 in the week)</span></div>
-        <div class="stat" style="--c:var(--orange)"><b>197</b><span>Social engagements, including 64 comments</span></div>
-      </div>
-      <div class="three">
-        <div><h5>The goal</h5><p>Grow an IT company founder's reach with buyers and decision-makers beyond an existing following of ~17K, and turn that attention into profile visits, conversations and clicks.</p></div>
-        <div><h5>What I did</h5><ul><li>Captured the founder's voice, opinions and stories through short interviews</li><li>Wrote posts around buyer problems, not product features, with strong hooks</li><li>Built the profile and call-to-action so attention turned into visits and clicks</li></ul></div>
-        <div class="hl"><h5>The result</h5><p>One week took impressions from roughly 2.3K to 73.3K. 93% of impressions came from outside the founder's network, so the content found new buyers rather than recycling existing followers.</p></div>
-      </div>
-      <div class="two">
-        <div class="panel">
-          <h5>Discovery · 17–23 Nov 2026</h5>
-          <div class="bar"><div class="lbl">Where impressions came from</div>
-            <div class="row"><span>In</span><div class="track"><div class="fill" style="width:7%"></div></div><span class="v">7%</span></div>
-            <div class="row"><span>Out</span><div class="track"><div class="fill after" style="width:93%"></div></div><b>93%</b></div></div>
-          <div class="bar"><div class="lbl">Profile viewers</div>
-            <div class="row"><span>Before</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="v">~66</span></div>
-            <div class="row"><span>After</span><div class="track"><div class="fill after" style="width:100%"></div></div><b>263</b></div></div>
-          <p>In = followers and connections. Out = members outside the founder's network. 73,322 impressions reached 48,750 unique members.</p>
-        </div>
-        <div class="panel">
-          <h5>Engagement in the same week</h5>
-          <table>
-            <tr><th>Metric</th><th class="n">Count</th></tr>
-            <tr><td>Reactions</td><td class="n"><b>120</b></td></tr>
-            <tr><td>Comments</td><td class="n"><b>64</b></td></tr>
-            <tr><td>Saves</td><td class="n"><b>10</b></td></tr>
-            <tr><td>Sends on LinkedIn</td><td class="n"><b>3</b></td></tr>
-            <tr><td>Link engagements (custom button)</td><td class="n"><b>13</b></td></tr>
-          </table>
-          <p style="margin-top:12px">A comment for every two reactions points to conversation, not just passive likes. That's what keeps a founder's posts in front of new people.</p>
+        <div class="f-data reveal">
+          <div class="tiles">
+            <div class="tile hot"><b>+241%</b><span>Google clicks across the domain (654 → 2.23K)</span></div>
+            <div class="tile"><b>1,647</b><span>Clicks for new client websites in 3 months</span></div>
+            <div class="tile"><b>2.12%</b><span>Organic enquiry rate vs 0.55% from direct</span></div>
+            <div class="tile"><b>&lt;40%</b><span>Cost of the best Meta campaigns vs account average</span></div>
+          </div>
+          <div class="steps6">
+            <div><small>01</small><strong>Research</strong><p>Market and competitors for the venue's area and cuisine</p></div>
+            <div><small>02</small><strong>Audit</strong><p>Social and website: missing, broken or working</p></div>
+            <div><small>03</small><strong>Plan</strong><p>Monthly calendar tied to offers and seasons</p></div>
+            <div><small>04</small><strong>Create</strong><p>Posts and carousels in the venue's voice</p></div>
+            <div><small>05</small><strong>Advertise</strong><p>Meta and Google Ads, optimised weekly</p></div>
+            <div><small>06</small><strong>Report</strong><p>Monthly reports and client calls</p></div>
+          </div>
         </div>
       </div>
     </article>
 
-    <article class="case pub">
+    <article class="feature">
+      <div class="f-top mono reveal"><span>Feature 03 — LinkedIn ghostwriting &amp; personal brand</span><span>Founder, US-based B2B IT company · 17–23 Nov 2026</span></div>
+      <div class="f-title reveal">
+        <h3>One week, <em>73,322</em> impressions.</h3>
+        <p>I ghostwrite founder-led LinkedIn content for B2B founders, turning their expertise, opinions and stories into posts that sound like them and reach the buyers they want. These results are from the founder of a US-based B2B IT company (client anonymised).</p>
+      </div>
+      <div class="f-body">
+        <div class="f-story reveal">
+          <h4 class="mono">The goal</h4>
+          <p>Grow an IT company founder's reach with buyers and decision-makers beyond an existing following of ~17K, and turn that attention into profile visits, conversations and clicks.</p>
+          <h4 class="mono">What I did</h4>
+          <ul>
+            <li>Captured the founder's voice, opinions and stories through short interviews</li>
+            <li>Wrote posts around buyer problems, not product features, with strong hooks</li>
+            <li>Built the profile and call-to-action so attention turned into visits and clicks</li>
+          </ul>
+          <p class="pull">A comment for every two reactions: people weren't just scrolling past, they were talking back.</p>
+        </div>
+        <div class="f-data reveal">
+          <div class="tiles">
+            <div class="tile hot"><b>73.3K</b><span>Impressions in 7 days, up 3,077% vs the prior 7 days</span></div>
+            <div class="tile"><b>48.7K</b><span>Unique members reached</span></div>
+            <div class="tile"><b>+298%</b><span>Profile viewers (263 in the week)</span></div>
+            <div class="tile"><b>197</b><span>Social engagements, incl. 64 comments</span></div>
+          </div>
+          <div class="chart">
+            <div class="mono"><span>Cumulative impressions · 17–23 Nov</span><span>LinkedIn analytics</span></div>
+            <svg viewBox="0 0 620 270" role="img" aria-label="Cumulative impressions rising from about 1.5 thousand on 17 November to 73.3 thousand on 23 November">
+              <line class="grid-l" x1="40" x2="600" y1="240" y2="240"/><line class="grid-l" x1="40" x2="600" y1="171" y2="171"/><line class="grid-l" x1="40" x2="600" y1="102" y2="102"/><line class="grid-l" x1="40" x2="600" y1="34" y2="34"/>
+              <text x="0" y="244">0</text><text x="0" y="175">25K</text><text x="0" y="106">50K</text><text x="0" y="38">75K</text>
+              <path class="area" d="M60 236 L150 223.5 L240 124.5 L330 117.6 L420 114.9 L510 61 L600 38.4 L600 240 L60 240 Z"/>
+              <path class="ln" d="M60 236 L150 223.5 L240 124.5 L330 117.6 L420 114.9 L510 61 L600 38.4"/>
+              <circle cx="600" cy="38.4" r="6" fill="var(--accent)"/>
+              <text x="590" y="20" text-anchor="end" style="fill:var(--ink);font-size:13px">73,322</text>
+              <text x="60" y="264" text-anchor="middle">17</text><text x="150" y="264" text-anchor="middle">18</text><text x="240" y="264" text-anchor="middle">19</text><text x="330" y="264" text-anchor="middle">20</text><text x="420" y="264" text-anchor="middle">21</text><text x="510" y="264" text-anchor="middle">22</text><text x="600" y="264" text-anchor="middle">23</text>
+            </svg>
+          </div>
+          <div class="chart">
+            <div class="donut-row">
+              <svg class="donut" viewBox="0 0 140 140" role="img" aria-label="93 percent of impressions from outside the founder's network">
+                <circle cx="70" cy="70" r="54" fill="none" stroke="var(--paper-2)" stroke-width="16"/>
+                <circle cx="70" cy="70" r="54" fill="none" stroke="var(--accent)" stroke-width="16" stroke-dasharray="315.5 339.3" transform="rotate(-90 70 70)"/>
+                <text x="70" y="80" text-anchor="middle">93%</text>
+              </svg>
+              <div>
+                <div class="mono" style="color:var(--muted)">Out-of-network reach</div>
+                <p style="color:var(--ink-2);margin-top:6px">93% of impressions came from people outside the founder's followers and connections, so the posts found new buyers rather than recycling the same audience.</p>
+                <table class="qtable" style="margin-top:10px">
+                  <tr><td>Reactions · Comments · Saves · Sends</td><td>120 · 64 · 10 · 3</td></tr>
+                  <tr><td>Link engagements (custom button)</td><td>13</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="pubwrap reveal">
+      <div class="cover">
+        <span class="mono">NALP Bulletin · Jul/Aug 2026</span>
+        <h4>The Architecture of <em>Silence</em></h4>
+        <span class="mono">Byline · Shivani Shah</span>
+      </div>
       <div>
-        <div class="tag">Published work</div>
-        <h4>“The Architecture of Silence: Why Law Firm Upward Reviews Fail”</h4>
-        <p style="color:var(--muted)">A bylined 4-page feature in the NALP Bulletin (National Association for Law Placement), July/August 2026. It put SRA's research in front of the law-firm leaders who buy its products, and built authority that supported search and AI visibility.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="wrap">
-    <div class="eyebrow">Experience</div>
-    <h3 class="sec">7+ years across agency, startup and SaaS</h3>
-    <p class="sub">Client-facing across US, Australian and Indian time zones. Team leadership: 3 at RestoGenius, 7 at ConceptCape.</p>
-    <div class="timeline">
-      <div class="job"><div class="top"><h4>Digital Marketing Manager</h4><span class="when">Nov 2025 – Present</span></div><div class="org">RestoGenius · Australian B2B SaaS for restaurants · Remote</div><p>Lead marketing for 7 restaurant and hospitality clients plus the RestoGenius brand, managing a team of 3 and acting as main client contact.</p></div>
-      <div class="job"><div class="top"><h4>Digital Marketing &amp; Growth Manager</h4><span class="when">May 2024 – Sep 2026</span></div><div class="org">Survey Research Associates (SRA HQ) · USA · Remote</div><p>Full-funnel B2B marketing for products Artemis (AI-native performance reviews) and NerdPay (AR automation for QuickBooks and Xero). Owned SEO, GEO/AEO, LinkedIn content and Webflow development.</p></div>
-      <div class="job"><div class="top"><h4>Digital Marketing Manager</h4><span class="when">Jun 2022 – Apr 2024</span></div><div class="org">ConceptCape Solutions · Hyderabad, India</div><p>Led a 7-member creative and social team across hospitality, e-commerce, real estate and home décor, managing ~₹1 lakh per client per month across Meta and Google Ads.</p></div>
-      <div class="job"><div class="top"><h4>Content Writer &amp; Social Media Manager</h4><span class="when">Apr 2021 – Jun 2022</span></div><div class="org">Holistic Academy · India</div><p>Content calendars and conversion-focused copy for Instagram, Facebook and YouTube course launches.</p></div>
-      <div class="job"><div class="top"><h4>Freelance Digital Marketing Consultant</h4><span class="when">2020 – Present</span></div><div class="org">India, Australia and USA · Remote</div><p>LinkedIn ghostwriting and personal branding for B2B founders, plus websites, design and lead generation for brands including Aercon AAC Blocks, Ayurveda Amrita, Imperial Homes, ShipTurtle, Daawat Indian Restaurant, Qabila Restaurant &amp; Bar and City Limits Café.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="soft" id="skills">
-  <div class="wrap">
-    <div class="eyebrow">Toolkit</div>
-    <h3 class="sec">Skills &amp; tools</h3>
-    <p class="sub">The tools I use to plan, launch and measure growth.</p>
-    <div class="skills">
-      <div class="card"><h4>SEO &amp; AI search</h4><div class="chips"><span class="chip">Technical SEO</span><span class="chip">On-page SEO</span><span class="chip">Keyword research</span><span class="chip">Intent mapping</span><span class="chip">GEO</span><span class="chip">AEO</span><span class="chip">FAQ schema</span><span class="chip">Link building</span></div></div>
-      <div class="card"><h4>Paid media</h4><div class="chips"><span class="chip">Meta Ads</span><span class="chip">Google Ads</span><span class="chip">LinkedIn Ads</span><span class="chip">WhatsApp campaigns</span><span class="chip">A/B testing</span><span class="chip">Budget management</span></div></div>
-      <div class="card"><h4>Strategy &amp; clients</h4><div class="chips"><span class="chip">Competitor research</span><span class="chip">Audits</span><span class="chip">GTM</span><span class="chip">Positioning</span><span class="chip">CRO</span><span class="chip">Team leadership</span></div></div>
-      <div class="card"><h4>Content &amp; design</h4><div class="chips"><span class="chip">B2B copywriting</span><span class="chip">LinkedIn ghostwriting</span><span class="chip">Personal branding</span><span class="chip">White papers</span><span class="chip">Webflow</span><span class="chip">Figma</span><span class="chip">Canva</span><span class="chip">Relume</span></div></div>
-      <div class="card"><h4>Analytics</h4><div class="chips"><span class="chip">GA4</span><span class="chip">Search Console</span><span class="chip">Tag Manager</span><span class="chip">Bing Webmaster Tools</span><span class="chip">Looker Studio</span><span class="chip">UTM tracking</span></div></div>
-      <div class="card"><h4>Certifications</h4><div class="chips"><span class="chip">Google Ads</span><span class="chip">Meta Certified Digital Marketing Associate</span><span class="chip">Go-to-Market Strategy</span><span class="chip">Fundamentals of Agentic AI</span><span class="chip">IGBC AP</span></div></div>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap">
-    <div class="contact">
-      <h3>Let's work together</h3>
-      <p>Remote, across US, UK, Australian and Canadian time zones.</p>
-      <div class="two">
-        <div class="panel"><h5>Full-time roles</h5><p><b>Growth Marketing · SEO &amp; AI Search · Performance Marketing · Content &amp; SEO.</b> For B2B SaaS teams that want one person who can own search, AI visibility, paid ads and content, and connect them to pipeline.</p></div>
-        <div class="panel"><h5>Freelance for founders</h5><ul><li><b>AI search visibility audit:</b> what ChatGPT, Perplexity, Gemini, Copilot and AI Overviews say about your product, and a prioritised fix list</li><li><b>Paid ads + funnel audit:</b> wasted spend, tracking gaps, click to qualified lead</li><li><b>LinkedIn ghostwriting for B2B founders:</b> posts in your voice, profile and personal-brand positioning, built to reach buyers outside your network</li><li><b>Growth retainer:</b> buyer-intent content, SEO/AEO, Meta and Google Ads, monthly reporting</li></ul></div>
-      </div>
-      <div class="ctas">
-        <a class="btn primary" href="mailto:shahshivani120@gmail.com">shahshivani120@gmail.com</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/shivanishah-growth" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn ghost" href="https://github.com/shahshivani120-lab" target="_blank" rel="noopener">GitHub</a>
+        <span class="mono" style="color:var(--accent)">In print</span>
+        <h3>“The Architecture of Silence: Why Law Firm Upward Reviews Fail”</h3>
+        <p>A bylined 4-page feature in the NALP Bulletin (National Association for Law Placement), July/August 2026. It put SRA's research in front of the law-firm leaders who buy its products, and built authority that supported search and AI visibility.</p>
       </div>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Shivani Shah</footer>
+<section class="approach" id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="num">iv.</div><div><h2>Seven years, <em>three markets</em>.</h2><p>Client-facing across US, Australian and Indian time zones. Team leadership: 3 at RestoGenius, 7 at ConceptCape.</p></div></div>
+    <div class="toc reveal">
+      <div class="row"><div class="when mono">Nov 2025 — Now</div><div><h3>Digital Marketing Manager</h3><p>Lead marketing for 7 restaurant and hospitality clients plus the RestoGenius brand, managing a team of 3 and acting as main client contact.</p></div><div class="org"><b>RestoGenius</b>Australian B2B SaaS · Remote</div></div>
+      <div class="row"><div class="when mono">May 2024 — Sep 2026</div><div><h3>Digital Marketing &amp; Growth Manager</h3><p>Full-funnel B2B marketing for Artemis (AI-native performance reviews) and NerdPay (AR automation for QuickBooks and Xero). Owned SEO, GEO/AEO, LinkedIn content and Webflow development.</p></div><div class="org"><b>Survey Research Associates</b>USA · Remote</div></div>
+      <div class="row"><div class="when mono">Jun 2022 — Apr 2024</div><div><h3>Digital Marketing Manager</h3><p>Led a 7-member creative and social team across hospitality, e-commerce, real estate and home décor, managing ~₹1 lakh per client per month across Meta and Google Ads.</p></div><div class="org"><b>ConceptCape Solutions</b>Hyderabad, India</div></div>
+      <div class="row"><div class="when mono">Apr 2021 — Jun 2022</div><div><h3>Content Writer &amp; Social Media Manager</h3><p>Content calendars and conversion-focused copy for Instagram, Facebook and YouTube course launches.</p></div><div class="org"><b>Holistic Academy</b>India</div></div>
+      <div class="row"><div class="when mono">2020 — Now</div><div><h3>Freelance Consultant &amp; LinkedIn Ghostwriter</h3><p>LinkedIn ghostwriting and personal branding for B2B founders, plus websites, design and lead generation for brands including Aercon AAC Blocks, Ayurveda Amrita, Imperial Homes, ShipTurtle, Daawat Indian Restaurant, Qabila Restaurant &amp; Bar and City Limits Café.</p></div><div class="org"><b>Independent</b>India · Australia · USA</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="toolkit">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="num">v.</div><div><h2>A short <em>glossary</em> of the toolkit.</h2></div></div>
+    <div class="glossary reveal">
+      <div class="gl"><h3>SEO &amp; AI search</h3><p>Technical and on-page SEO, keyword research, intent mapping, <b>GEO</b>, <b>AEO</b>, FAQ schema, link building, AI visibility across ChatGPT, Copilot, Perplexity, Gemini and Google AI Overviews.</p></div>
+      <div class="gl"><h3>Paid media</h3><p><b>Meta Ads</b>, <b>Google Ads</b>, LinkedIn Ads, WhatsApp and messaging campaigns, creative and A/B testing, budget management.</p></div>
+      <div class="gl"><h3>Founder LinkedIn</h3><p><b>LinkedIn ghostwriting</b>, <b>personal branding</b>, founder interviews, hooks and post structure, profile positioning, comment strategy.</p></div>
+      <div class="gl"><h3>Strategy &amp; clients</h3><p>Market and competitor research, audits, GTM, positioning, CRO, client management, team leadership.</p></div>
+      <div class="gl"><h3>Content &amp; design</h3><p>B2B copywriting, case studies, white papers, <b>Webflow</b>, Figma, Canva, Relume.</p></div>
+      <div class="gl"><h3>Analytics</h3><p><b>GA4</b>, Search Console, Tag Manager, Bing Webmaster Tools, Looker Studio, Meta Ads Manager, UTM tracking.</p></div>
+      <div class="gl"><h3>Certifications</h3><p>Google Ads · Meta Certified Digital Marketing Associate · Go-to-Market Strategy · Fundamentals of Agentic AI · IGBC Accredited Professional.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="mono" style="color:#e2b23c">vi. — Correspondence</span>
+    <h2 class="reveal" style="margin-top:18px">Let's make something <em>worth reading</em>.</h2>
+    <p class="intro reveal">Remote, across US, UK, Australian and Canadian time zones. Open to full-time growth roles and freelance projects for founders.</p>
+    <div class="offers reveal">
+      <div><span class="mono">Full-time</span><h3>Growth, SEO &amp; AI search</h3><p>For B2B SaaS teams that want one person to own search, AI visibility, paid ads and content, and connect them to pipeline.</p></div>
+      <div><span class="mono">Freelance</span><h3>LinkedIn ghostwriting for founders</h3><p>Posts in your voice, profile and personal-brand positioning, built to reach buyers outside your network.</p></div>
+      <div><span class="mono">Freelance</span><h3>AI search visibility audit</h3><p>What ChatGPT, Perplexity, Gemini, Copilot and AI Overviews say about your product, and a prioritised fix list.</p></div>
+      <div><span class="mono">Freelance</span><h3>Paid ads + growth retainer</h3><p>Wasted spend, tracking gaps, buyer-intent content, Meta and Google Ads, monthly reporting.</p></div>
+    </div>
+    <div class="ctas reveal">
+      <a class="pill solid" href="mailto:shahshivani120@gmail.com">shahshivani120@gmail.com</a>
+      <a class="pill" href="https://www.linkedin.com/in/shivanishah-growth" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="pill" href="https://github.com/shahshivani120-lab" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="bigname" aria-hidden="true">Shivani Shah</div>
+    <div class="colophon mono"><span>© 2026 Shivani Shah</span><span>Set in Fraunces, Inter Tight &amp; IBM Plex Mono</span><span>Printed on the open web</span></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function count(el){
+    var t=parseFloat(el.dataset.count),d=parseInt(el.dataset.dec||'0',10),p=el.dataset.prefix||'',s=el.dataset.suffix||'',st=null;
+    function f(ts){if(!st)st=ts;var k=Math.min((ts-st)/1400,1),e=1-Math.pow(1-k,3);el.textContent=p+(t*e).toFixed(d)+s;if(k<1)requestAnimationFrame(f);}
+    requestAnimationFrame(f);
+  }
+  var els=document.querySelectorAll('.reveal');
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');x.target.querySelectorAll('[data-count]').forEach(count);io.unobserve(x.target);}})},{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
 </body>
 </html>
